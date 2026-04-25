@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from 'react'
 import Header from './Header'
 import NavBottom from './NavBottom'
+import { IoIosCloseCircleOutline } from "react-icons/io";
 import tdStore from '../stores/useTdStore'
+import { set } from 'react-hook-form';
 const History = () => {
   //const {tdDetails,setTdDetails} = tdStore();
   const [loader,setLoader] = useState(true);
@@ -14,7 +16,19 @@ const History = () => {
     } catch (error) {
       console.log(error)
     } 
-  },[])
+  },[]);
+
+  {/*----------------------loader needs to be added */}
+  const deleteTd =async (id)=>{
+    try {
+      if(!id) return;
+      const newList = tdList.filter((td)=>td._id!==id);
+      setTdList(newList);
+      await localStorage.setItem("tdRecords", JSON.stringify(newList))
+    } catch (error) {
+      console.log(error)
+    }
+  }
 const colorArr = [
     {
       bg: "bg-[#042c53] ",
@@ -53,26 +67,31 @@ const colorArr = [
         {/* ---------------mapable container----------------- */}
         {
          tdList?.length>0? tdList?.map((td)=>(
-            <div key={td._id} className='w-[90%]  m-auto rounded-[10px] bg-[#222220]'>
+            <div key={td._id} className='w-[90%]  m-auto rounded-[10px] bg-[#222220] mt-2'>
           
             <div  className='w-full p-3'>
               {/* ------name div------------ */}
                 <div className='w-full'>
                   <div className='w-full flex justify-between '>
                     <p className=''>{td.applicantName}</p>
-                    <p className="p-1  text-center cursor-pointer  h-6  w-16 border-[0.5px] border-[#3b6d11] rounded-[10px] bg-[#173404] hover:bg-[#152e05] text-[#c0dd97] text-xs">{td.conversion} %</p>
+                    <button  className="text-xl cursor-pointer" onClick={()=>deleteTd(td._id)}>
+                      <IoIosCloseCircleOutline />
+                    </button>
                   </div>
-                <p className='text-sm text-[#888780] '>
-                 <span className='mr-1'>S/O {td.fathersName}</span>
+                <div className='text-sm text-[#888780]'>
+                  <p>
+                  <span className='mr-1'>S/O {td.fathersName}</span>
                  <span>·</span>
-                 <span className='ml-1'>{td.address}</span> 
-                </p>
+                 <span className='ml-1'>{td.address}</span>
+                  </p> 
+                </div>
                 </div>
               
 
               {/* ----------class and species div ------------- */}
-              <div className='w-full mt-2.5 h-5 flex text-[10px]'>
-                {
+              <div className='w-full mt-2.5 h-5 flex justify-between text-[10px]'>
+                <div className='flex'>
+                  {
                   td?.treeDetails?.map((tree,i)=>(
                   <div key={tree._id} className={`flex items-center py-1 px-2 rounded-2xl border-[0.5px] mr-2.5 ${colorArr[i].border} ${colorArr[i].bg} ${colorArr[i].text}`}>
                   <div
@@ -84,6 +103,11 @@ const colorArr = [
                 </div>  
                   ))
                 }
+                </div>
+                
+                <div className=''>
+                  <p className="p-1  text-center cursor-pointer  h-6  w-16 border-[0.5px] border-[#3b6d11] rounded-[10px] bg-[#173404] hover:bg-[#152e05] text-[#c0dd97] text-xs">{td.conversion} %</p> 
+                </div>
                 
               </div>
 

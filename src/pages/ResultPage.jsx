@@ -22,23 +22,77 @@ const ResultPage = () => {
 
     return treesArr;
   });
-    const saveData =async () => {
-    try {
+  const confirmSave = ()=>{
+    const savedData = JSON.parse(localStorage.getItem("tdRecords"));
+    const confirm = savedData.find((data) => data._id === tdDetails._id);
 
-      const rawData = localStorage.getItem("tdRecords");
-      const existing = rawData ? JSON.parse(rawData) : [];
-      const updatedRecords = [...existing, tdDetails];
-      await localStorage.setItem("tdRecords", JSON.stringify(updatedRecords));
-      const confirm = JSON.parse(localStorage.getItem("tdRecords")).filter((data)=>data._id===tdDetails._id);
-      if(!confirm||confirm.length===0) setMsg("error saving in TD")
-      // alert("TD Saved")
-      resetTd();
-      console.log("Saved:", JSON.parse(confirm));
-      navigate("/details")
-    } catch (error) {
-      console.log(error);
+    if (!confirm) {
+      return false;
     }
-  };
+    console.log(confirm)
+    return true;
+  }
+const saveData = async () => {
+  try {
+    const rawData = localStorage.getItem("tdRecords");
+    const existing = rawData ? JSON.parse(rawData) : [];
+
+    // 1. Check for duplicates
+    const isCopy = existing.find((item) => item._id === tdDetails._id);
+    
+    if (isCopy) {
+      const hasChanges =
+        isCopy.sizes.length !== tdDetails.sizes.length ||
+        tdDetails.sizes.some((size, index) => {
+          const oldSize = isCopy.sizes[index];
+          return (
+            size.length !== oldSize.length ||
+            size.width !== oldSize.width ||
+            size.thickness !== oldSize.thickness ||
+            size.qty !== oldSize.qty
+          );
+        });
+
+      if (!hasChanges) {
+        alert("TD Already Saved");
+        resetTd();
+        navigate("/details");
+        return;
+      }
+
+      const newTdArr = existing.map((item) =>
+        item._id === tdDetails._id ? tdDetails : item
+      );
+      localStorage.setItem("tdRecords", JSON.stringify(newTdArr));
+      const confirm = confirmSave();
+      if (!confirm) {
+        setMsg("Error saving in TD");
+        return;
+      }
+      navigate("/history");
+      return;
+    }
+
+    // 2. Update records
+    const updatedRecords = [...existing, tdDetails];
+    localStorage.setItem("tdRecords", JSON.stringify(updatedRecords));
+
+    // 3. Verify save
+    const confirm = confirmSave();
+    if (!confirm) {
+      setMsg("Error saving in TD");
+      return;
+    }
+
+    // 4. Success cleanup
+    console.log("Saved successfully:", confirm);
+    navigate("/history");
+  } catch (error) {
+    console.error("Save failed:", error);
+    setMsg("A system error occurred while saving.");
+  }
+};
+
   const colorArr = [
     {
       bg: "bg-[#042c53] ",

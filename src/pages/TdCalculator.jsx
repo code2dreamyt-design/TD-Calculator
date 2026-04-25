@@ -23,8 +23,13 @@ const TdCalculator = () => {
     return treesArr;
   });
 
-  const [sizes, setSizes] = useState(() =>
-    (tdDetails?.treeDetails || [])
+  const [sizes, setSizes] = useState(() =>{
+     const current = tdDetails?.sizes;
+     if(current.length>0){
+      return tdDetails?.sizes;
+     };
+  
+    const newsizes = (tdDetails?.treeDetails || [])
       .filter(
         (tree, index, self) =>
           self.findIndex((t) => t.species === tree.species) === index,
@@ -38,7 +43,9 @@ const TdCalculator = () => {
         qty: 0,
         volume_unit: 0,
         volume_total: 0,
-      })),
+      }));
+    return newsizes;
+    }
   );
 
   //   const treeSizeArr = useMemo(() => {
@@ -289,6 +296,7 @@ const TdCalculator = () => {
                         <input
                           type="number"
                           className="outline-none bg-[#1A1A18] border-[0.5px] border-[#ffffff1f] w-full px-1.5 text-center rounded-[10px] py-1"
+                          value={`${size.length===0 ? "":size.length}`}
                           onChange={(e) =>
                             updateSize(size._id, "length", e.target.value)
                           }
@@ -301,6 +309,7 @@ const TdCalculator = () => {
                         <input
                           type="number"
                           className="outline-none bg-[#1A1A18] border-[0.5px] border-[#ffffff1f] w-full px-1.5 text-center rounded-[10px] py-1"
+                          value={`${size.width===0 ? "":size.width}`}
                           onChange={(e) =>
                             updateSize(size._id, "width", e.target.value)
                           }
@@ -313,6 +322,7 @@ const TdCalculator = () => {
                         <input
                           type="number"
                           className="outline-none bg-[#1A1A18] border-[0.5px] border-[#ffffff1f] w-full px-1.5 text-center rounded-[10px] py-1"
+                          value={`${size.thickness===0 ? "":size.thickness}`}
                           onChange={(e) =>
                             updateSize(size._id, "thickness", e.target.value)
                           }
@@ -325,6 +335,7 @@ const TdCalculator = () => {
                         <input
                           type="number"
                           className="outline-none bg-[#1A1A18] border-[0.5px] border-[#ffffff1f] w-full px-1.5 text-center rounded-[10px] py-1"
+                          value={`${size.qty===0 ? "":size.qty}`}
                           onChange={(e) =>
                             updateSize(size._id, "qty", e.target.value)
                           }
