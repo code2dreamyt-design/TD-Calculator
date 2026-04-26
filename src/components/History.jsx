@@ -20,9 +20,11 @@ const History = () => {
       );
       console.log(tdData);
       setTdList(sorted);
-      setLoading(false)
+      setLoading(false);
     } catch (error) {
       console.log(error);
+    }finally{
+      setLoading(false);
     }
   }, []);
 
