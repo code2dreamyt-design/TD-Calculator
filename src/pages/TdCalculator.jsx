@@ -187,7 +187,8 @@ const TdCalculator = () => {
   }, [tdDetails]);
   const saveData = () => {
     try {
-      navigate("/results")
+      if(tdDetails.sizes.length===0) return;
+      navigate("/results");
     } catch (error) {
       console.log(error);
     }

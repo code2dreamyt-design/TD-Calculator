@@ -2,19 +2,34 @@ import React, { useEffect, useState } from "react";
 import Header from "../components/Header";
 import NavBottom from "../components/NavBottom";
 import { useForm } from "react-hook-form";
-import tdStore from "../stores/useTdStore";
+import tdStore from "../stores/useTdStore"                    ;
 import { useNavigate } from "react-router-dom";
 const DataForm = () => {
-    const {tdDetails,setTdDetails} = tdStore();
-    const navigate = useNavigate();
+  const { tdDetails, setTdDetails } = tdStore();
+  const navigate = useNavigate({});
+  const [treeArr, setTreeArr] = useState(() =>
+    Array.from({ length: tdDetails.treeCount || 1 }, (_, i) => i + 1),
+  );
   const {
     register,
     unregister,
     handleSubmit,
     formState: { errors },
-  } = useForm();
-  const [treeArr, setTreeArr] = useState([1]);
-
+  } = useForm({
+    defaultValues: {
+      applicantName: tdDetails.applicantName,
+      fathersName: tdDetails.fathersName,
+      address: tdDetails.address,
+      range: tdDetails.range,
+      beat: tdDetails.beat,
+      compartment: tdDetails.compartment,
+      treeCount: tdDetails.treeCount || 1,
+      trees: tdDetails.treeDetails.map((tree) => ({
+        species: tree.species,
+        class: tree.class,
+      })),
+    },
+  });
 
   const stdVol = {
     Deodar: {
@@ -79,50 +94,48 @@ const DataForm = () => {
     "bg-[#854f0b]",
     "bg-[#993c1d]",
   ];
-const treeDetailsSec = (value) => {
-  const newCount = parseInt(value)
-  const oldCount = treeArr.length
+  const treeDetailsSec = (value) => {
+    const newCount = parseInt(value);
+    const oldCount = treeArr.length;
 
-  if (newCount < oldCount) {
-    for (let i = newCount; i < oldCount; i++ ) {
-      unregister(`trees.${i}.species`)
-      unregister(`trees.${i}.class`)
+    if (newCount < oldCount) {
+      for (let i = newCount; i < oldCount; i++) {
+        unregister(`trees.${i}.species`);
+        unregister(`trees.${i}.class`);
+      }
     }
-  }
-  setTreeArr(Array.from({ length: newCount }, (_, i) => i + 1))
-}
+    setTreeArr(Array.from({ length: newCount }, (_, i) => i + 1));
+  };
   const updateData = (data) => {
     console.log(data);
-    let totalStdVol=0;
-    const treeData = data.trees.map((tree)=>{
-        //console.log(tree)
-        const keySp = tree.species;
-        const keyCl = tree.class
-        const vol = stdVol[keySp][keyCl];
-        totalStdVol = totalStdVol+vol;
-        //console.log(keyCl,keySp)
+    let totalStdVol = 0;
+    const treeData = data.trees.map((tree) => {
+      //console.log(tree)
+      const keySp = tree.species;
+      const keyCl = tree.class;
+      const vol = stdVol[keySp][keyCl];
+      totalStdVol = totalStdVol + vol;
+      //console.log(keyCl,keySp)
 
-        return {_id:crypto.randomUUID(),...tree}
+      return { _id: crypto.randomUUID(), ...tree };
     });
-    setTdDetails(
-       {
-        applicantName: data.applicantName,
-        fathersName: data.fathersName,
-        address: data.address,
-        range: data.range,
-        beat: data.beat,
-        compartment: data.compartment,
-        treeCount:parseInt(data.treeCount),
-        treeDetails:treeData,
-        standingVolume:totalStdVol.toFixed(2),
-        createdAt:new Date().toISOString()
-      }
-    );
-    navigate("/calculator")
+    setTdDetails({
+      applicantName: data.applicantName,
+      fathersName: data.fathersName,
+      address: data.address,
+      range: data.range,
+      beat: data.beat,
+      compartment: data.compartment,
+      treeCount: parseInt(data.treeCount),
+      treeDetails: treeData,
+      standingVolume: totalStdVol.toFixed(2),
+      createdAt: new Date().toISOString(),
+    });
+    navigate("/calculator");
   };
-  useEffect(()=>{
-    console.log(tdDetails)
-  },[tdDetails]);
+  useEffect(() => {
+    console.log(tdDetails);
+  }, [tdDetails]);
 
   return (
     <form
@@ -158,7 +171,7 @@ const treeDetailsSec = (value) => {
                 required: { value: true, message: "Enter father's name" },
               })}
               className="w-full bg-[#222220] text-[#f0ede8] rounded-[10px] p outline-none px-2 py-3 text-sm border-[0.5px] border-[#b4b2a963] mt-1 mb-2"
-              placeholder="e.g. Ramesh Kumar"
+              placeholder="e.g. Suresh Kumar"
             />
           </div>
           <div className="w-full mt-2">
@@ -169,7 +182,7 @@ const treeDetailsSec = (value) => {
                 required: { value: true, message: "Enter applicant's address" },
               })}
               className="w-full bg-[#222220] text-[#f0ede8] rounded-[10px] p outline-none px-2 py-3 text-sm border-[0.5px] border-[#b4b2a963] mt-1 mb-2"
-              placeholder="e.g. Ramesh Kumar"
+              placeholder="e.g. Khalawan"
             />
           </div>
         </div>
@@ -236,10 +249,10 @@ const treeDetailsSec = (value) => {
                 className="w-full bg-[#222220] text-[#f0ede8] rounded-[10px] p outline-none px-2 py-3 text-sm border-[0.5px] border-[#b4b2a963] mt-1 mb-2"
                 onChange={(e) => treeDetailsSec(e.target.value)}
               >
-                <option value="1">1 tree</option>
-                <option value="2">2 trees</option>
-                <option value="3">3 trees</option>
-                <option value="4">4 trees</option>
+                <option value={1}>1 tree</option>
+                <option value={2}>2 trees</option>
+                <option value={3}>3 trees</option>
+                <option value={4}>4 trees</option>
               </select>
             </div>
           </div>
@@ -264,7 +277,7 @@ const treeDetailsSec = (value) => {
                 <div className="w-[45%]">
                   <p className="text-[#b4b2a9] text-xs ">Species</p>
                   <select
-                    {...register(`trees.${num-1}.species`, {
+                    {...register(`trees.${num - 1}.species`, {
                       required: {
                         value: true,
                         message: "select the species of tree",
@@ -282,7 +295,7 @@ const treeDetailsSec = (value) => {
                 <div className="w-[45%]">
                   <p className="text-[#b4b2a9] text-xs ">Class</p>
                   <select
-                    {...register(`trees.${num-1}.class`, {
+                    {...register(`trees.${num - 1}.class`, {
                       required: {
                         value: true,
                         message: "select the class of tree",

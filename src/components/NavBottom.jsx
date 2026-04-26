@@ -1,6 +1,6 @@
 import React from 'react'
 import { RiHomeSmileLine } from "react-icons/ri";
-import { TbNotes } from "react-icons/tb";
+import { FaPlus } from "react-icons/fa";;
 import { MdOutlineFileDownload } from "react-icons/md";
 import { useNavigate } from 'react-router-dom';
 import tdStore from '../stores/useTdStore';
@@ -15,7 +15,7 @@ const NavBottom = () => {
   return (
     <div className='h-full w-full flex justify-around p-2 border-t-[0.5px] border-[#b4b2a96b]'>
         <div className='h-full w-[25%] flex justify-center items-center flex-col'>
-            <div className=' w-[50%] flex flex-col items-center' onClick={resetForm}>
+            <div className=' w-[50%] flex flex-col items-center'  onClick={()=>navigate("/history")}>
               <button className='cursor-pointer w-8 h-8 flex justify-center items-center'>
                 <RiHomeSmileLine className='w-6 h-6 text-[#185fa5] border-[]'/>
             </button>
@@ -26,12 +26,12 @@ const NavBottom = () => {
             
         </div>
         <div className='h-full w-[25%] flex justify-center items-center flex-col'>
-            <div className=' w-[50%] flex flex-col items-center' onClick={()=>navigate("/history")}>
+            <div className=' w-[50%] flex flex-col items-center'  onClick={resetForm}>
                 <button className='cursor-pointer w-8 h-8 flex justify-center items-center'>
-                <TbNotes className='w-6 h-6 text-[#888780]'/>
+                <FaPlus className='w-6 h-6 text-[#888780]'/>
             </button>
             <p className='text-xs text-[#b4b2a9]'>
-                History
+               Add new 
             </p>
             </div>
         </div>

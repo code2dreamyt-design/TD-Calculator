@@ -74,7 +74,7 @@ const saveData = async () => {
     }
 
     // 2. Update records
-    const updatedRecords = [...existing, tdDetails];
+    const updatedRecords = [...existing, {...tdDetails,createdAt:new Date().toISOString()}];
     localStorage.setItem("tdRecords", JSON.stringify(updatedRecords));
 
     // 3. Verify save

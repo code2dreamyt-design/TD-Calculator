@@ -12,7 +12,7 @@ function App() {
         <Route path="/calculator" element={<TdCalculator/>}/>
         <Route path="/history" element={<History/>}/>
         <Route path="/exports" element={<ExportOpt/>}/>
-        <Route path="*" element={<DataForm/>} />
+        <Route path="*" element={<History/>} />
         <Route path="/details" element={<DataForm/>} />
         <Route path="/results" element={<ResultPage/>}/>
       </Routes>

@@ -21,12 +21,11 @@ const tdStore = create(
         conversion: "",
         createdAt:""
       },
-
+      sizes:[],
       setTdDetails: (data) =>
         set((state) => ({
           tdDetails: { ...state.tdDetails, ...data },
         })),
-
       resetTd: () =>
         set({
           tdDetails: {
@@ -34,9 +33,9 @@ const tdStore = create(
             applicantName: "",
             fathersName: "",
             address: "",
-            range: "",
-            beat: "",
-            compartment: "",
+            range: "Tikkar",
+            beat: "Pharog",
+            compartment: "C.no. 3 Pharog",
             treeCount: 0,
             treeDetails: [],
             sizes: [],
