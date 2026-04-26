@@ -1,5 +1,7 @@
 {
   "experimentalServices": {
-    "fluid": {}
+    "fluid": {
+      "routePrefix": "/"
+    }
   }
 }
