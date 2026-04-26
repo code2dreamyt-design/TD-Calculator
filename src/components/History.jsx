@@ -179,7 +179,7 @@ const History = () => {
                         setExpanded(expanded === td._id ? null : td._id)
                       }
                     >
-                      View
+                      {expanded === td._id ?"Close" : "View"}
                     </button>
                   </div>
 
