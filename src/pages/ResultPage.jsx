@@ -42,6 +42,21 @@ const saveData = async () => {
     
     if (isCopy) {
       const hasChanges =
+        isCopy.applicantName !== tdDetails.applicantName ||
+        isCopy.fathersName !== tdDetails.fathersName ||
+        isCopy.address !== tdDetails.address ||
+        isCopy.compartment !== tdDetails.compartment ||
+        isCopy.range !== tdDetails.range ||
+        isCopy.treeCount !== tdDetails.treeCount ||
+        isCopy.beat !== tdDetails.beat ||
+        tdDetails.treeDetails?.some((tree,index)=>{
+          const oldTree = isCopy.treeDetails[index];
+          return (
+            tree.species!==oldTree.species ||
+            tree.class !== oldTree.class
+          )
+        }) ||
+        isCopy.conversion !== tdDetails.conversion ||
         isCopy.sizes.length !== tdDetails.sizes.length ||
         tdDetails.sizes.some((size, index) => {
           const oldSize = isCopy.sizes[index];

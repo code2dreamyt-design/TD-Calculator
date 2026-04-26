@@ -5,8 +5,9 @@ import { FaEdit } from "react-icons/fa";
 import { IoIosCloseCircleOutline } from "react-icons/io";
 import tdStore from "../stores/useTdStore";
 import { useNavigate } from "react-router-dom";
+import Loader from "./Loader";
 const History = () => {
-  const [loader, setLoader] = useState(true);
+  const [loading, setLoading] = useState(true); 
   const navigate = useNavigate();
   const { setTdDetails} = tdStore();
   const [tdList, setTdList] = useState([]);
@@ -19,6 +20,7 @@ const History = () => {
       );
       console.log(tdData);
       setTdList(sorted);
+      setLoading(false)
     } catch (error) {
       console.log(error);
     }
@@ -73,7 +75,9 @@ const History = () => {
       <div className="h-[8%] w-full ">
         <Header />
       </div>
-      <div className="h-[82%] w-full overflow-y-auto mt-1">
+      {loading ?(<div className={`${loading ? "block h-full w-full":"hidden"}   absolute`}>
+        <Loader loading={loading} />
+      </div>) :(<div className="h-[82%] w-full overflow-y-auto mt-1">
         <h2 className="text-sm font-bold text-[#888780] w-[90%] flex items-center m-auto h-12">
           {tdList?.length || 0} RECORDS
         </h2>
@@ -271,8 +275,8 @@ const History = () => {
             {"Empty Storage"}
           </div>
         )}
-      </div>
-      <div className="h-[10%] w-full">
+      </div>)}
+      <div className="h-[10%] w-full fixed bottom-0">
         <NavBottom />
       </div>
     </div>

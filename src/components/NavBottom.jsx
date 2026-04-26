@@ -31,7 +31,7 @@ const NavBottom = () => {
                 <FaPlus className='w-6 h-6 text-[#888780]'/>
             </button>
             <p className='text-xs text-[#b4b2a9]'>
-               Add new 
+               Add
             </p>
             </div>
         </div>

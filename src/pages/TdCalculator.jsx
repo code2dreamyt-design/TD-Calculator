@@ -105,7 +105,7 @@ const TdCalculator = () => {
         (sum, item) => sum + Number(item.volume_total),
         0,
       );
-      let conversionP =((convertedVol / tdDetails.standingVolume)* 100).toFixed(2) ;
+      let conversionP =((convertedVol / tdDetails.standingVolume)* 100).toFixed(2);
       setTdDetails({
       sizes:finalSizes,
       convertedVolume:Number(convertedVol.toFixed(2)),
@@ -114,8 +114,10 @@ const TdCalculator = () => {
     }
   };
 
-
-
+  useEffect(()=>{
+    const conversion = ((tdDetails.convertedVolume / tdDetails.standingVolume)* 100).toFixed(2);
+    setTdDetails({conversion:Number(conversion)});
+  },[])
   const updateSize = (id, field, value) => {
     if (sizes.length === 0) return;
     const updateSizes = sizes?.map((item) => {
