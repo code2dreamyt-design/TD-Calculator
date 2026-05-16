@@ -14,8 +14,8 @@ const History = () => {
   const [expanded, setExpanded] = useState(null);
   useEffect(() => {
     try {
-      const tdData = JSON.parse(localStorage.getItem("tdRecords"));
-      const sorted = tdData.sort(
+      const tdData = JSON.parse(localStorage.getItem("tdRecords"))||[];
+      const sorted = tdData?.sort(
         (a, b) => new Date(b.createdAt) - new Date(a.createdAt),
       );
       console.log(tdData);
@@ -182,7 +182,7 @@ const History = () => {
                       {expanded === td._id ?"Close" : "View"}
                     </button>
                   </div>
-
+{/*  */}
                   <div
                     className={`w-full m-auto bg-[#222220] rounded-lg border border-white/8 overflow-hidden mt-2 ${expanded === td._id ? "block" : "hidden"}`}
                   >
@@ -205,10 +205,10 @@ const History = () => {
                             T(m)
                           </th>
                           <th className="w-[11%] py-1.75 px-1.25 text-center text-[#888780] font-medium">
-                            Qty(pcs)
+                            V/unit(m³)
                           </th>
                           <th className="w-[21%] py-1.75 px-1.25 text-center text-[#888780] font-medium">
-                            V/unit(m³)
+                            Qty(pcs)
                           </th>
                           <th className="w-[21%] py-1.75 px-1.25 text-center text-[#888780] font-medium">
                             Total(m³)
@@ -254,10 +254,10 @@ const History = () => {
                                     {size.thickness}
                                   </td>
                                   <td className="py-1.5 px-1.25 text-center text-[#b4b2a9]">
-                                    {size.qty}
+                                    {size.volume_unit}
                                   </td>
                                   <td className="py-1.5 px-1.25 text-center text-[#b4b2a9]">
-                                    {size.volume_unit}
+                                    {size.qty}
                                   </td>
                                   <td className="py-1.5 px-1.25 text-center text-[#c0dd97] font-medium">
                                     {size.volume_total}

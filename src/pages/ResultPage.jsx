@@ -56,7 +56,7 @@ const saveData = async () => {
             tree.class !== oldTree.class
           )
         }) ||
-        isCopy.conversion !== tdDetails.conversion ||
+        isCopy.conversion  !== tdDetails.conversion ||
         isCopy.sizes.length !== tdDetails.sizes.length ||
         tdDetails.sizes.some((size, index) => {
           const oldSize = isCopy.sizes[index];
@@ -182,10 +182,10 @@ const saveData = async () => {
                   T(m)
                 </th>
                 <th className="w-[11%] py-1.75 px-1.25 text-center text-[#888780] font-medium">
-                  Qty(pcs)
+                  V/unit(m³)
                 </th>
                 <th className="w-[21%] py-1.75 px-1.25 text-center text-[#888780] font-medium">
-                  V/unit(m³)
+                  Qty(pcs)
                 </th>
                 <th className="w-[21%] py-1.75 px-1.25 text-center text-[#888780] font-medium">
                   Total(m³)
@@ -225,10 +225,10 @@ const saveData = async () => {
                     {size.thickness}
                   </td>
                   <td className="py-1.5 px-1.25 text-center text-[#b4b2a9]">
-                    {size.qty}
+                    {size.volume_unit}
                   </td>
                   <td className="py-1.5 px-1.25 text-center text-[#b4b2a9]">
-                    {size.volume_unit}
+                    {size.qty}
                   </td>
                   <td className="py-1.5 px-1.25 text-center text-[#c0dd97] font-medium">
                     {size.volume_total}

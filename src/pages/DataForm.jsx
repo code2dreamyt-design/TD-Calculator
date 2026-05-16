@@ -9,7 +9,7 @@ import Loader from "../components/Loader";
 const DataForm = () => {
   const { tdDetails, setTdDetails } = tdStore();
   const navigate = useNavigate({});
-  const [loading, setLoading] = useState(false); 
+  
   const [treeArr, setTreeArr] = useState(() =>
     Array.from({ length: tdDetails.treeCount || 1 }, (_, i) => i + 1),
   );
@@ -111,7 +111,6 @@ const DataForm = () => {
   };
   const updateData = (data) => {
     console.log(data);
-    setLoading(true); 
     let totalStdVol = 0;
     const treeData = data.trees.map((tree) => {
       //console.log(tree)
@@ -151,9 +150,7 @@ const DataForm = () => {
       <div className="h-[8%] w-full">
         <Header />
       </div>
-      <div className={`${loading ? "block":"hidden"} w-full h-full absolute`}>
-        <Loader loading={loading} />
-      </div>
+      
       {/* ---------------deatil form -------------------*/}
       <div className="h-[71%] w-full overflow-y-auto mb-4 flex flex-col items-center">
         {/*-------------applicant details -------------*/}

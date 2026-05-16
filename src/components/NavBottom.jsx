@@ -36,7 +36,7 @@ const NavBottom = () => {
             </div>
         </div>
         <div className='h-full w-[25%] flex justify-center items-center flex-col'>
-            <div className=' w-[50%] flex flex-col items-center'>
+            <div className=' w-[50%] flex flex-col items-center' onClick={()=>navigate("/exports")}>
               <button className='cursor-pointer w-8 h-8  flex justify-center items-center'>
                 <MdOutlineFileDownload className='w-7 h-7 text-[#888780]'/>
             </button>
