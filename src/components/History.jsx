@@ -145,24 +145,24 @@ const History = () => {
                 <div className="w-full flex border-[0.5px] border-[#ffffff0f] mt-2.5 text-[#888780]">
                   <div className="w-1/3 p-2 ">
                     <p className="text-xs font-bold">STANDING</p>
-                    <p className="text-[#f0ede8]">{td.standingVolume} m³</p>
+                    <p className="text-sm text-[#f0ede8]">{td.standingVolume} m³</p>
                   </div>
                   <div className="w-1/3 p-2 border-[0.5px] border-[#ffffff0f]">
                     <p className="text-xs font-bold">CONVERTED</p>
-                    <p className="text-[#c0dd97]">{td.convertedVolume} m³</p>
+                    <p className="text-sm text-[#c0dd97]">{td.convertedVolume} m³</p>
                   </div>
                   <div className="w-1/3 p-2 ">
-                    <p className="text-xs font-bold">TREES</p>
-                    <p className="text-[#f0ede8]">{td.treeCount}</p>
+                    <p className="text-xs font-bold">M.No.</p>
+                    <p className="text-sm text-[#f0ede8]">{td.markingNo}</p>
                   </div>
                 </div>
 
                 {/* -------------expandable details--------------- */}
-                <div className="w-full mt-2.5">
+                <div className="w-full mt-2.5">kgtg
                   <div className="w-full flex justify-between">
-                    <p className="text-sm text-[#888780]">
-                      <span className="mr-1">{td.compartment}</span>·
-                      <span className="ml-1">
+                    <div className="text-sm text-[#888780]">
+                      <span className="mr-1">{td.compartment.map((c)=>((" · ")+c))} </span>
+                      <p className="ml-1">
                         {new Date(td.createdAt).toLocaleDateString("en-IN", {
                           day: "numeric",
                           month: "short",
@@ -171,8 +171,8 @@ const History = () => {
                           minute: "2-digit",
                           hour12: true,
                         })}
-                      </span>
-                    </p>
+                      </p>
+                    </div>
                     <button
                       className="  cursor-pointer  h-7 w-14 border-[0.5px] border-[#185fa5] rounded-[10px] bg-[#042c53] hover:bg-[#152e05] text-[#b5d4f4] text-xs font-bold"
                       onClick={() =>

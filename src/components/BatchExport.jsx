@@ -124,10 +124,10 @@ const BatchExport = ({ td, onSelectionChange }) => {
                 <th className="w-[6%] py-2 px-2 text-left text-[#888780] font-medium">#</th>
                 <th className="w-[24%] py-2 px-1 text-left text-[#888780] font-medium">Applicant</th>
                 <th className="w-[12%] py-2 px-1 text-center text-[#888780] font-medium">Beat</th>
-                <th className="w-[12%] py-2 px-1 text-center text-[#888780] font-medium">Species</th>
-                <th className="w-[10%] py-2 px-1 text-center text-[#888780] font-medium">Class</th>
+                <th className="w-[12%] py-2 px-1 text-center text-[#888780] font-medium">Forest</th>
+                <th className="w-[10%] py-2 px-1 text-center text-[#888780] font-medium">Species</th>
                 <th className="w-[15%] py-2 px-1 text-center text-[#888780] font-medium">Standing (m³)</th>
-                <th className="w-[15%] py-2 px-1 text-center text-[#888780] font-medium">Converted (m³)</th>
+                <th className="w-[15%] py-2 px-1 text-center text-[#888780] font-medium">M.No.</th>
               </tr>
             </thead>
             <tbody>
@@ -158,15 +158,16 @@ const BatchExport = ({ td, onSelectionChange }) => {
                       </p>
                     </td>
                     <td className="py-2 px-1 text-center text-[#b4b2a9]">{item.beat}</td>
-                    <td className="py-2 px-1 text-center text-[#b4b2a9]">
-                      {item.treeDetails?.map((t) => t.species).join(', ')}
+                    <td className="py-2 px-1 text-center text-[#b4b2a9] truncate">
+                      {item.compartment.map((c)=>{return c +" ,"} )}
                     </td>
                     <td className="py-2 px-1 text-center text-[#b4b2a9]">
-                      {item.treeDetails?.map((t) => t.class).join(', ')}
+                      {item.treeDetails?.map((t) => {return t.species + " " +"( "+ t.class + " )"})}
                     </td>
+                    
                     <td className="py-2 px-1 text-center text-[#b4b2a9]">{item.standingVolume}</td>
                     <td className="py-2 px-1 text-center text-[#c0dd97] font-medium">
-                      {item.convertedVolume}
+                      {item.markingNo}
                     </td>
                   </tr>
                 )

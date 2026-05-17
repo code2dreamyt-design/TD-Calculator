@@ -57,10 +57,10 @@ const buildBatchDoc = (records, startDate, endDate) => {
       hCell('S.No.'),
       hCell('Applicant (Name, F/o, R/o)'),
       hCell('Beat'),
+      hCell('Forest'),
       hCell('Species'),
-      hCell('Class'),
       hCell('Standing Vol (m³)'),
-      hCell('Converted Vol (m³)'),
+      hCell('M.No.'),
     ],
   })
 
@@ -73,10 +73,10 @@ const buildBatchDoc = (records, startDate, endDate) => {
           { align: AlignmentType.LEFT, shading: i % 2 === 1 ? altShading : undefined }
         ),
         cell(r.beat,            { shading: i % 2 === 1 ? altShading : undefined }),
-        cell(r.treeDetails?.map((t) => t.species).join(', '), { shading: i % 2 === 1 ? altShading : undefined }),
-        cell(r.treeDetails?.map((t) => t.class).join(', '),   { shading: i % 2 === 1 ? altShading : undefined }),
+        cell(r.compartment?.map((c) =>{return c+", "}), { shading: i % 2 === 1 ? altShading : undefined }),
+        cell(r.treeDetails?.map((t) =>{return t.species+" ( "+t.class +" )"}),   { shading: i % 2 === 1 ? altShading : undefined }),
         cell(r.standingVolume,  { shading: i % 2 === 1 ? altShading : undefined }),
-        cell(r.convertedVolume, { shading: i % 2 === 1 ? altShading : undefined }),
+        cell(r.markingNo, { shading: i % 2 === 1 ? altShading : undefined }),
       ],
     })
   )
@@ -200,10 +200,12 @@ const buildSingleDoc = (record) => {
 
         // Details
         line('Range',       record.range),
-        line('Compartment', record.compartment),
+        line('Compartment', record.compartment.map((c)=>(c+" ,"))),
         line('Species',     record.treeDetails?.map((t) => `${t.class} · ${t.species}`).join(', ')),
+        line('Marking No.',`${record.markingNo}`),
         line('Standing Vol',`${record.standingVolume} m³`),
         line('Converted Vol',`${record.convertedVolume} m³`),
+        
         new Paragraph({ children: [new TextRun({ text: '' })] }),
 
         // Sizes table

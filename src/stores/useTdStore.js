@@ -9,9 +9,12 @@ const tdStore = create(
         applicantName: "",
         fathersName: "",
         address: "",
+        markingNo:"",
         range: "",
         beat: "",
-        compartment: "",
+        compartment: [],
+        isFreeGrant: false,  // ✅ added
+        freeGrantStatus: "",
         treeCount: 0,
         treeDetails: [],
         sizes: [],
@@ -19,9 +22,8 @@ const tdStore = create(
         totalSizes: 0,
         convertedVolume: 0,
         conversion: "",
-        createdAt:""
+        createdAt: "",
       },
-      sizes:[],
       setTdDetails: (data) =>
         set((state) => ({
           tdDetails: { ...state.tdDetails, ...data },
@@ -33,9 +35,12 @@ const tdStore = create(
             applicantName: "",
             fathersName: "",
             address: "",
+            markingNo:"",
             range: "Tikkar",
             beat: "Pharog",
-            compartment: "C.no. 3 Pharog",
+            compartment: ["C.no. 3 Pharog"],
+            isFreeGrant: false,  // ✅ added
+            freeGrantStatus: "",          // ✅ added
             treeCount: 0,
             treeDetails: [],
             sizes: [],
@@ -43,7 +48,7 @@ const tdStore = create(
             totalSizes: 0,
             convertedVolume: 0,
             conversion: "",
-            createdAt:""
+            createdAt: "",
           },
         }),
     }),

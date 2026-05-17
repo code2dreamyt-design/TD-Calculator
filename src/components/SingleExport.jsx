@@ -100,13 +100,14 @@ const SingleExport = ({ td, onSelect }) => {
                   </span>
                 </p>
                 <p className="w-full flex justify-between py-2 border-b-[0.5px] border-[#ffffff26]">
+                  <span className="text-xs text-[#888780]">M.No.</span>
+                  <span className="text-xs text-[#c0dd97]">{record.markingNo }</span>
+                </p>
+                <p className="w-full flex justify-between py-2 border-b-[0.5px] border-[#ffffff26]">
                   <span className="text-xs text-[#888780]">Standing Vol</span>
                   <span className="text-xs text-[#b4b2a9]">{record.standingVolume} m³</span>
                 </p>
-                <p className="w-full flex justify-between py-2 border-b-[0.5px] border-[#ffffff26]">
-                  <span className="text-xs text-[#888780]">Converted Vol</span>
-                  <span className="text-xs text-[#c0dd97]">{record.convertedVolume} m³</span>
-                </p>
+                
               </div>
 
               {/* Select button */}
